@@ -1,0 +1,235 @@
+<app-sidebar></app-sidebar>
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-head-box">
+                    <h3>Cost Center Setup</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cost Center Setup</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="add-emp-section">
+                    <a class="btn btn-success btn-add-emp" data-bs-toggle="modal" data-bs-target="#add_cost-center"
+                        style="width: auto;"><i class="fas fa-plus"></i> Add Cost Center</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <input class="form-control center me-2" type="search" [(ngModel)]="searchKey" name="search"
+                placeholder="Search" aria-label="Search"> <br>
+            <button class="btn btn-primary" type="submit">Search</button>
+
+        </div>
+        <hr>
+        <!-- /Search Filter -->
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 ">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Cost Center ID</th>
+                                <th>Cost Center Description </th>
+                                 <th>Charge Out Rate </th>
+                              <th>Charge Out Rate GLAccount</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let costcenter of costData | paginate:{itemsPerPage:tablesize, currentPage: page, totalItems:count} |searchFilter:searchKey:'description' let i = index">
+                                <td>{{tablesize *(page-1)+ i+1}}</td>
+                                <td>{{costcenter.costCenterId}}</td>
+                                <td>{{costcenter.description}}</td>
+                              <td>{{costcenter.chargeOutRate}}</td>
+                              <td>{{costcenter.glaccountNumber}}</td>
+                                <td class="text-end ico-sec d-flex justify-content-end">
+                                    <a data-bs-toggle="modal" data-bs-target="#edit_costcenter"
+                                        (click)="editcostcenter(costcenter)"><i class="fas fa-pen"></i></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#delete_costcenter"
+                                        (click)="deleteData(costcenter.costCenterId)">
+                                        <i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Pagination -->
+        <div class="row" style="margin:0;">
+            <div class="col-md-12" style="text-align: center;">
+                <span>
+                    <pagination-controls (pageChange)="onTableDataChange($event)"></pagination-controls>
+                </span>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <!-- /Page Content -->
+
+        <!-- Add cost center Modal -->
+        <div id="add_cost-center" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Cost Center</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times" #closeBtn></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="costcenterForm">
+                            <div class="form-group">
+                                <label>Cost Center Id<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="costCenterId" type="text"
+                                    [ngClass]="{'form-control': true, 'is-invalid': costcenterForm.get('costCenterId')?.invalid &&
+                            (costcenterForm.get('costCenterId')?.dirty || costcenterForm.get('costCenterId')?.touched)}">
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="description" type="text"
+                                    [ngClass]="{'form-control': true, 'is-invalid': costcenterForm.get('description')?.invalid &&
+                            (costcenterForm.get('description')?.dirty || costcenterForm.get('description')?.touched)}">
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Charge Out Rate<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="chargeOutRate" type="text"
+                                    [ngClass]="{'form-control': true, 'is-invalid': costcenterForm.get('chargeOutRate')?.invalid &&
+                            (costcenterForm.get('chargeOutRate')?.dirty || costcenterForm.get('chargeOutRate')?.touched)}">
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Charge Out Rate GL Account</label>
+                              <select name="account" id="account" class="form-control" formControlName="glaccountNumber">
+                                <option *ngFor = "let account of glaccountNumberData"
+                                        [selected]="account"
+                                        [value]="account">
+                                  {{account}}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary cancel-btn" data-bs-dismiss="modal"
+                                    aria-label="Close">Cancel</button>
+                                <button class="btn btn-primary submit-btn" (click)="Add()">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Add cost center Modal -->
+
+
+        <!-- Edit cost center Modal -->
+        <div id="edit_costcenter" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Cost Center</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times" #closeupdatebtn></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="costcenterForm">
+
+                            <div class="form-group">
+                                <label>Cost Center ID<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="costCenterId" type="text">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Description<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="description" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Charge Out Rate<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="chargeOutRate" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Charge Out Rate GL Account<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="glaccountNumber" type="text">
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary cancel-btn" data-bs-dismiss="modal"
+                                    aria-label="Close">Cancel</button>
+
+                                <button class="btn btn-primary submit-btn" (click)="Update()">Update</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Edit cost center Modal -->
+
+
+        <!-- Delete cost center Modal -->
+        <div class="modal custom-modal fade" id="delete_costcenter" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="form-header">
+                            <h3>Delete Cost Center</h3>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fas fa-times" #closedeletebtn></i>
+                            </button>
+                            <p>Are you sure want to delete?</p>
+                        </div>
+                        <div class="modal-btn delete-action">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a class="btn btn-primary continue-btn"
+                                        (click)="Delete(costData.costcenterId)">Delete</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                        class="btn btn-primary cancel-btn">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Delete cost center Modal -->
+
+    </div>
+
+
+</div>

@@ -1,0 +1,205 @@
+<app-sidebar></app-sidebar>
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-head-box">
+                    <h3>Designations</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Designations</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="add-emp-section">
+                    <a class="btn btn-success btn-add-emp" data-bs-toggle="modal" data-bs-target="#add_designation"
+                        style="width: auto;"><i class="fas fa-plus"></i> Add
+                        Designations</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <input class="form-control center me-2" type="search" [(ngModel)]="searchKey" name="search" 
+            placeholder="Search" aria-label="Search"> <br>
+          <button class="btn btn-primary" type="submit">Search</button>
+
+        </div>
+        <hr>
+        <!-- /Search Filter -->
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 ">
+                        <thead>
+                            <tr>
+                                <th>Designation ID </th>
+                                <th>Design Description </th>
+
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let designation of designationData | paginate:{itemsPerPage:tablesize, currentPage: page, totalItems:count} |searchFilter:searchKey:'designDescription' let i = index">
+                                <td>{{tablesize *(page-1)+ i+1}}</td>
+                                <td>{{designation.designationId}}</td>
+                                <td>{{designation.designDescription}}</td>
+                                <td class="text-end ico-sec d-flex justify-content-end">
+                                    <a data-bs-toggle="modal" data-bs-target="#edit_designation"
+                                        (click)="editDesignation(designation)"><i class="fas fa-pen"></i></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#delete_designation"
+                                        (click)="deleteData(designation.designationId)"><i
+                                            class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Pagination -->
+        <div class="row" style="margin:0;">
+            <div class="col-md-12" style="text-align: center;">
+                <span>
+                    <pagination-controls (pageChange)="onTableDataChange($event)"></pagination-controls>
+                </span>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <!-- /Page Content -->
+
+        <!-- Add Designation Modal -->
+        <div id="add_designation" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Designation</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times" #closeBtn></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="DesignationForm">
+                            <div class="form-group">
+                                <label>Designation Id <span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="designationId" type="text"
+                                    [ngClass]="{'form-control': true, 'is-invalid': DesignationForm.get('designationId')?.invalid &&
+                            (DesignationForm.get('designationId')?.dirty || DesignationForm.get('designationId')?.touched)}">
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Design Description <span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="designDescription" type="text"
+                                    [ngClass]="{'form-control': true, 'is-invalid': DesignationForm.get('designDescription')?.invalid &&
+                            (DesignationForm.get('designDescription')?.dirty || DesignationForm.get('designDescription')?.touched)}">
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary cancel-btn" data-bs-dismiss="modal"
+                                    aria-label="Close">Cancel</button>
+                                <button class="btn btn-primary submit-btn" (click)="Add()">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Add Designation Modal -->
+
+
+        <!-- Edit Designation Modal -->
+        <div id="edit_designation" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Designation</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times" #closeupdatebtn></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="DesignationForm">
+
+                            <div class="form-group">
+                                <label>Designation Id <span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="designationId" type="text">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Design Description <span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="designDescription" type="text">
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary cancel-btn" data-bs-dismiss="modal"
+                                    aria-label="Close">Cancel</button>
+
+                                <button class="btn btn-primary submit-btn" (click)="Update()">Update</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Edit Designation Modal -->
+
+
+        <!-- Delete Designation Modal -->
+        <div class="modal custom-modal fade" id="delete_designation" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="form-header">
+                            <h3>Delete Designation</h3>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fas fa-times" #closedeletebtn></i>
+                            </button>
+                            <p>Are you sure want to delete?</p>
+                        </div>
+                        <div class="modal-btn delete-action">
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <a class="btn btn-primary continue-btn"
+                                        (click)="Delete(designationData.desiganationId)">Delete</a>
+
+
+                                </div>
+                                <div class="col-6">
+                                    <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                        class="btn btn-primary cancel-btn">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Delete Designation Modal -->
+
+    </div>
