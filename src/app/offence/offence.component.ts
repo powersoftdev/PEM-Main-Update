@@ -15,7 +15,7 @@ import  { saveAs} from 'file-saver-es';
 @Component({
   selector: 'app-offence',
   templateUrl: './offence.component.html',
-  styleUrls: ['./offence.component.css']
+  // styleUrls: ['./offence.component.css']
 })
 export class offenceComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;

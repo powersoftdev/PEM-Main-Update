@@ -15,7 +15,7 @@ import  { saveAs} from 'file-saver-es';
 @Component({
   selector: 'app-relationship',
   templateUrl: './relationship.component.html',
-  styleUrls: ['./relationship.component.css']
+  // styleUrls: ['./relationship.component.css']
 })
 export class relationshipComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;
@@ -27,7 +27,7 @@ export class relationshipComponent implements OnInit {
   // searchedKeyword: string;
   searchKey: string = "";
   contentReady($event:any){}
- 
+
   // MatPaginator Inputs
   length = 10;
   pageSize = 10;

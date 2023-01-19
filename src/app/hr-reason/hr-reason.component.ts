@@ -15,7 +15,7 @@ import  { saveAs} from 'file-saver-es';
 @Component({
   selector: 'app-hr-reason',
   templateUrl: './hr-reason.component.html',
-  styleUrls: ['./hr-reason.component.css']
+  // styleUrls: ['./hr-reason.component.css']
 })
 export class HrReasonComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;

@@ -14,7 +14,7 @@ import  { saveAs} from 'file-saver-es';
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css']
+  // styleUrls: ['./activity.component.css']
 })
 export class activityComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;

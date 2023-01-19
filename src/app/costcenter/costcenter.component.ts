@@ -14,7 +14,7 @@ import  { saveAs} from 'file-saver-es';
 @Component({
   selector: 'app-costcenter',
   templateUrl: './costcenter.component.html',
-  styleUrls: ['./costcenter.component.css']
+  // styleUrls: ['./costcenter.component.css']
 })
 export class CostCenterComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;

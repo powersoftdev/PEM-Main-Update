@@ -21,7 +21,7 @@ import { MonthlySummaryReportComponent}from './Reports/Attendance-Reports/monthl
 import { DeductionReportComponent} from './Reports/Deduction-Reports/deduction-reports.component'
 import { LatenessReportsComponent } from './Reports/Lateness-Reports/Lateness-Details-Reports/lateness-reports/lateness-reports.component';
 import { LatenessSummaryReportComponent } from './Reports/Lateness-Reports/Lateness-Summary-Reports/lateness-summary-reports/lateness-summary-reports.component';
-// import { PayrollPayTypeComponent} from './Common/Payment/Payrollpayment/payroll-paytype/payroll-paytype.component'
+import { PayrollPayTypeComponent} from './Common/Payments/payroll-paytype/payroll-paytype.component'
 import {JobclassComponent} from './Common/jobclass/jobclass.component'
 import {CategoryComponent} from './Common/category/category.component'
 import {CoursetypeComponent} from './Common/coursetype/coursetype.component'
@@ -93,8 +93,8 @@ const routes: Routes = [
     path: 'gradetype',
     component: GradeTypeComponent
   },
- 
-  
+
+
   {
     path: 'institution',
     component: InstitutionComponent
@@ -122,17 +122,17 @@ const routes: Routes = [
   {
     path: 'lateness-reports',
     component: LatenessReportsComponent
-  }, 
+  },
   {
     path: 'lateness-summary-reports',
     component: LatenessSummaryReportComponent
   },
 
-  // {
-  //   path: 'payroll-paytype',
-  //   component: PayrollPayTypeComponent
-  // },
-  
+   {
+    path: 'payroll-paytype',
+   component: PayrollPayTypeComponent
+   },
+
   {
     path: 'jobclass',
     component: JobclassComponent
@@ -212,7 +212,7 @@ const routes: Routes = [
   },
 
 
- 
+
 ];
 
 @NgModule({

@@ -96,11 +96,11 @@
               <dxo-search-panel    [visible]="true"   [width]="240"  placeholder="Search..." ></dxo-search-panel>
 
               <dxo-column-chooser    [enabled]="true"   mode="select">  </dxo-column-chooser>
-              
+
               <dxo-grouping  [contextMenuEnabled]="true">  </dxo-grouping>
-    
-        </dx-data-grid> 
-        
+
+        </dx-data-grid>
+
           <dx-toolbar>
             <dxi-item location="center" [visible]="isFooterVisible">
               <div>
@@ -347,7 +347,7 @@
                   Pay Type Elements
                 </div>
                 <div class="p-2 bd-highlight border border-dark" (click)="ShowHide()">
-                <span class="btn" disable="" >Show/Hide Search</span>  
+                <span class="btn" disable="" >Show/Hide Search</span>
                 </div>
                 <div class="p-2 bd-highlight border border-dark" (click)="showNewLine()" >
                    <span class="btn" >New Line</span>
@@ -372,7 +372,7 @@
                   <input type="button" class=" btnClear" value="Clear" />
                 </p>
               </div>
-           
+
 
 
               <table class="container" *ngIf="showNewLineContainer ">
@@ -397,7 +397,7 @@
                         <div class="col-sm-6" (click)="save()">
                           <span class="btn"> <i class="fas fa-save"></i></span>
                           &nbsp;
-                        </div> 
+                        </div>
                         <div (click)="deleteNewLineRow(i)" class="col-sm-6">
                           <span class="btn"> <i class="fas fa-undo"></i></span>
                         </div>
@@ -718,10 +718,10 @@
                   Pay Type Elements
                 </div>
                 <div class="p-2 bd-highlight border border-dark" (click)="ShowHide()">
-           <span class="btn">Show/Hide Search</span>       
+           <span class="btn">Show/Hide Search</span>
                 </div>
                 <div class="p-2 bd-highlight border border-dark" (click)="showNewLine()">
-                <span class="btn"> New Line</span> 
+                <span class="btn"> New Line</span>
                 </div>
               </div>
               <div class="form-group">
@@ -753,7 +753,7 @@
                 </div> -->
                 <!-- <div class="form-group row border border-dark">
                   <div class="col-sm-2 border border-dark"><i class="fas fa-save"></i>&nbsp; &nbsp;&nbsp;
-           <i class="fas fa-undo"></i> 
+           <i class="fas fa-undo"></i>
                   </div> -->
                 <!-- <div class="col-sm-8 border border-dark d-flex">
                     <div class="inline">
@@ -829,15 +829,15 @@
 
                       <!-- ***********************Save & Column************************* -->
                       <td>
-     
+
                         <div class="row">
                           <div class="col-sm-6" >
                              <!-- <span class="btn" (click)="save"> <i class="fas fa-save"></i></span>  -->
                               &nbsp;<span class="btn"  (click)="saveEdit(i+1)"> <i class="fas fa-edit"></i></span>
                             </div>
-                         
+
                           <div class="col-sm-6">
-                       <span  (click)="deleteRow(i+1)"><i class="fas fa-undo"></i></span> 
+                       <span  (click)="deleteRow(i+1)"><i class="fas fa-undo"></i></span>
                       </div>
                         </div>
                       </td>
@@ -848,8 +848,8 @@
                         <!-- <input style="width:120px"  name="{{dynamic.firstName}}" [(ngModel)]="dynamic.firstName"  type="text" /> -->
                         <div class="border border-dark d-flex btn">
                           <div class="inline">
-                          
-                          
+
+
                             <input type="text" formControlName="EditNewLineInput{{i+1}}"/>
 
                           </div>
